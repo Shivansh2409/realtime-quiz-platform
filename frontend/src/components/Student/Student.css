@@ -1,0 +1,239 @@
+.student-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Join Quiz */
+.join-container {
+  width: 100%;
+  max-width: 400px;
+}
+
+.join-card {
+  text-align: center;
+}
+
+.join-card h1 {
+  margin-bottom: 8px;
+}
+
+.join-subtitle {
+  color: #666;
+  margin-bottom: 24px;
+}
+
+.code-input {
+  text-align: center;
+  font-size: 1.5rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+.btn-block {
+  width: 100%;
+  margin-top: 16px;
+}
+
+.error-message {
+  color: #ef4444;
+  font-size: 14px;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+/* Quiz Room */
+.quiz-container {
+  width: 100%;
+  max-width: 600px;
+}
+
+/* Waiting Card */
+.waiting-card {
+  padding: 40px;
+}
+
+.waiting-icon {
+  font-size: 4rem;
+  margin-bottom: 16px;
+}
+
+.waiting-message {
+  color: #666;
+  margin-top: 16px;
+}
+
+.connection-indicator {
+  margin-top: 24px;
+  font-size: 14px;
+}
+
+.connected {
+  color: #10b981;
+}
+
+.disconnected {
+  color: #f59e0b;
+}
+
+/* Timer Bar */
+.timer-bar {
+  background: white;
+  border-radius: 12px;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.timer-bar.warning {
+  background: #fef2f2;
+  animation: pulse 1s infinite;
+}
+
+.timer-value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #667eea;
+}
+
+.timer-bar.warning .timer-value {
+  color: #ef4444;
+}
+
+.timer-label {
+  color: #666;
+  font-size: 14px;
+}
+
+/* Question Card */
+.question-card {
+  text-align: center;
+}
+
+.question-text {
+  font-size: 1.25rem;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+/* Options Grid */
+.options-grid {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.option-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  background: #f8f9fa;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  font-size: 16px;
+}
+
+.option-btn:hover:not(.disabled) {
+  background: #f0f0f0;
+  transform: translateY(-2px);
+}
+
+.option-btn.selected {
+  background: #667eea;
+  color: white;
+  border-color: #667eea;
+}
+
+.option-btn.disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.option-letter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: white;
+  border-radius: 50%;
+  font-weight: bold;
+  color: #667eea;
+  flex-shrink: 0;
+}
+
+.option-btn.selected .option-letter {
+  background: white;
+  color: #667eea;
+}
+
+.option-text {
+  flex: 1;
+}
+
+/* Submit Button */
+.submit-btn {
+  margin-top: 16px;
+  padding: 16px;
+  font-size: 18px;
+}
+
+/* Submitted Message */
+.submitted-message {
+  margin-top: 20px;
+  padding: 16px;
+  background: #ecfdf5;
+  color: #059669;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.timeout-message {
+  margin-top: 20px;
+  padding: 16px;
+  background: #fef2f2;
+  color: #dc2626;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+/* Results Card */
+.results-card {
+  padding: 40px;
+}
+
+.my-result {
+  margin: 24px 0;
+}
+
+.rank-badge {
+  display: inline-block;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #667eea;
+  margin-bottom: 8px;
+}
+
+.result-score {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.result-time {
+  color: #666;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}

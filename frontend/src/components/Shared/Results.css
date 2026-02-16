@@ -1,0 +1,89 @@
+.results-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.results-container {
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+}
+
+.results-title {
+  font-size: 2.5rem;
+  color: white;
+  margin-bottom: 8px;
+}
+
+.quiz-title {
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 24px;
+  font-weight: normal;
+}
+
+.leaderboard {
+  text-align: left;
+}
+
+.leaderboard h3 {
+  text-align: center;
+  margin-bottom: 16px;
+  font-size: 1.25rem;
+}
+
+.leaderboard-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.leaderboard-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  gap: 16px;
+}
+
+.leaderboard-item.top-1 {
+  background: linear-gradient(135deg, #ffd700 0%, #ffec8b 100%);
+}
+
+.leaderboard-item.top-2 {
+  background: linear-gradient(135deg, #c0c0c0 0%, #e8e8e8 100%);
+}
+
+.leaderboard-item.top-3 {
+  background: linear-gradient(135deg, #cd7f32 0%, #daa06d 100%);
+}
+
+.rank {
+  font-size: 1.5rem;
+  min-width: 40px;
+  text-align: center;
+}
+
+.player-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.player-name {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.player-score {
+  font-size: 0.875rem;
+  color: #666;
+}
+
+.player-time {
+  font-size: 0.875rem;
+  color: #888;
+}
