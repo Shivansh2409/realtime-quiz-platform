@@ -1,5 +1,9 @@
 # Real-Time Synchronized Quiz Platform
 
+🚀 **[Play the Live Demo Here!](https://shivansh-quiz.duckdns.org/)** 🚀
+
+*(Recently updated with a custom, sleek **"Kinetic Curator" UI theme** featuring vibrant purples, slanted hero backgrounds, and floating glassmorphism components!)*
+
 A high-concurrency web application using the MERN stack that allows an Admin to host live, timed quizzes for multiple students simultaneously.
 
 ## Features
