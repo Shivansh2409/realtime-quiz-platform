@@ -1,0 +1,311 @@
+/* =========================================
+   AUTHENTICATION (LOGIN / REGISTER)
+   ========================================= */
+.auth-page {
+  min-height: 100vh;
+  background-color: #fcf5ff; /* Pale lilac background */
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.auth-header-text {
+  text-align: center;
+  padding: 30px 0 20px 0;
+  position: relative;
+  z-index: 10;
+}
+
+.auth-header-text h2 {
+  color: #ffffff; /* Changed to white to pop against the dark slant */
+  font-weight: 800;
+  font-size: 1.5rem;
+  letter-spacing: -0.5px;
+}
+
+.auth-wrapper {
+  width: 100%;
+  max-width: 450px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* --- Slanted Dark Hero Section --- */
+.auth-hero {
+  position: absolute;
+  top: -100px; /* Pulls it up behind the header text */
+  width: 200vw; /* Makes sure the background spans the whole screen width */
+  height: 380px;
+  background: linear-gradient(135deg, #2a2a35 0%, #1a1a24 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 140px;
+  text-align: center;
+  z-index: 0;
+}
+
+.auth-hero-content {
+  width: 100%;
+  max-width: 420px;
+}
+
+.hero-subtitle {
+  color: #6a26ff;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 3px;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.hero-title {
+  color: #ffffff;
+  font-size: 1.8rem;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+}
+
+/* --- Main Card & Toggle --- */
+.auth-card-container {
+  width: 90%;
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 180px; /* Pushes card down to overlap the slant perfectly */
+}
+
+.auth-toggle {
+  display: flex;
+  background: #f8f3ff;
+  border-radius: 9999px;
+  padding: 6px;
+  width: 85%;
+  margin-bottom: -24px; /* Pulls it down to overlap the white card */
+  z-index: 20;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.toggle-btn {
+  flex: 1;
+  padding: 14px 0;
+  border: none;
+  background: transparent;
+  border-radius: 9999px;
+  font-weight: 700;
+  color: #8a8a9d;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.toggle-btn.active {
+  background: #ffffff;
+  color: #6a26ff;
+  box-shadow: 0 4px 15px rgba(106, 38, 255, 0.15);
+}
+
+.auth-card {
+  background: #ffffff;
+  width: 100%;
+  border-radius: 30px;
+  padding: 50px 30px 30px 30px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* --- Form Elements --- */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #8a8a9d;
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+}
+
+.password-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.forgot-link {
+  color: #6a26ff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: #f8f3ff;
+  border-radius: 16px;
+  padding: 4px 16px;
+  transition: background 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.input-wrapper:focus-within {
+  background: #ffffff;
+  border-color: #6a26ff;
+  box-shadow: 0 0 0 3px rgba(106, 38, 255, 0.1);
+}
+
+.input-icon {
+  width: 20px;
+  height: 20px;
+  color: #8a8a9d;
+  margin-right: 12px;
+}
+
+.auth-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  padding: 14px 0;
+  font-size: 1rem;
+  color: #2a2a35;
+  outline: none;
+  font-weight: 500;
+}
+
+.auth-input::placeholder {
+  color: #b0b0bc;
+}
+
+.eye-btn {
+  background: transparent;
+  border: none;
+  color: #8a8a9d;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.eye-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* --- Buttons --- */
+.submit-btn {
+  background: linear-gradient(90deg, #6a26ff 0%, #8e44ff 100%);
+  color: white;
+  border: none;
+  border-radius: 9999px;
+  padding: 18px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(106, 38, 255, 0.25);
+  margin-top: 10px;
+  transition: transform 0.2s ease;
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+}
+
+.submit-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* --- Social Login --- */
+.divider {
+  text-align: center;
+  margin: 30px 0 20px 0;
+  position: relative;
+}
+
+.divider::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #eaeaef;
+  z-index: 1;
+}
+
+.divider span {
+  background: #ffffff;
+  padding: 0 15px;
+  color: #8a8a9d;
+  font-size: 0.75rem;
+  font-weight: 700;
+  position: relative;
+  z-index: 2;
+  letter-spacing: 1px;
+}
+
+.social-login {
+  display: flex;
+  gap: 15px;
+}
+
+.social-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: #f8f3ff;
+  border: none;
+  padding: 14px;
+  border-radius: 16px;
+  font-weight: 600;
+  color: #2a2a35;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.social-btn:hover {
+  background: #f3e8ff;
+}
+.social-icon {
+  font-weight: 800;
+  font-size: 1.2rem;
+  color: #6a26ff;
+}
+
+/* --- Footer --- */
+.auth-footer {
+  text-align: center;
+  margin-top: 40px;
+  padding: 0 20px;
+  font-size: 0.8rem;
+  color: #8a8a9d;
+  line-height: 1.6;
+}
+
+.auth-footer a {
+  color: #6a26ff;
+  font-weight: 700;
+  text-decoration: none;
+}

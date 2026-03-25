@@ -6,17 +6,16 @@ import SessionHost from "./components/Admin/SessionHost";
 import JoinQuiz from "./components/Student/JoinQuiz";
 import QuizRoom from "./components/Student/QuizRoom";
 import Results from "./components/Shared/Results";
-import Login from "./components/Admin/Login";
-import Register from "./components/Admin/Register";
 import ProtectedRoute from "./components/Shared/ProtectedRoute";
+import Auth from "./components/Admin/Auth";
 
 function App() {
   return (
     <div className="app">
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/admin/login" element={<Login />} />
-        <Route path="/admin/register" element={<Register />} />
+        <Route path="/admin/login" element={<Auth />} />
+        <Route path="/admin/register" element={<Auth />} />
         <Route
           path="/admin"
           element={
