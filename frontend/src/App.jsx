@@ -1,20 +1,46 @@
-import { Routes, Route } from 'react-router-dom';
-import Home from './components/Shared/Home';
-import AdminDashboard from './components/Admin/AdminDashboard';
-import QuizCreator from './components/Admin/QuizCreator';
-import SessionHost from './components/Admin/SessionHost';
-import JoinQuiz from './components/Student/JoinQuiz';
-import QuizRoom from './components/Student/QuizRoom';
-import Results from './components/Shared/Results';
+import { Routes, Route } from "react-router-dom";
+import Home from "./components/Shared/Home";
+import AdminDashboard from "./components/Admin/AdminDashboard";
+import QuizCreator from "./components/Admin/QuizCreator";
+import SessionHost from "./components/Admin/SessionHost";
+import JoinQuiz from "./components/Student/JoinQuiz";
+import QuizRoom from "./components/Student/QuizRoom";
+import Results from "./components/Shared/Results";
+import Login from "./components/Admin/Login";
+import Register from "./components/Admin/Register";
+import ProtectedRoute from "./components/Shared/ProtectedRoute";
 
 function App() {
   return (
     <div className="app">
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/admin/create" element={<QuizCreator />} />
-        <Route path="/admin/session/:sessionId" element={<SessionHost />} />
+        <Route path="/admin/login" element={<Login />} />
+        <Route path="/admin/register" element={<Register />} />
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute>
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/create"
+          element={
+            <ProtectedRoute>
+              <QuizCreator />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/session/:sessionId"
+          element={
+            <ProtectedRoute>
+              <SessionHost />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/join" element={<JoinQuiz />} />
         <Route path="/join/:code" element={<JoinQuiz />} />
         <Route path="/quiz/:code" element={<QuizRoom />} />

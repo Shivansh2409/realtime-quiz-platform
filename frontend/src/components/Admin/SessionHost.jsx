@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { QRCodeSVG } from 'qrcode.react';
-import { useSocket } from '../../context/SocketContext';
-import { useApi } from '../../hooks/useApi';
-import './Admin.css';
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { QRCodeSVG } from "qrcode.react";
+import { useSocket } from "../../context/SocketContext";
+import { useApi } from "../../hooks/useApi";
+import "./Admin.css";
 
 function SessionHost() {
   const { sessionId } = useParams();
@@ -25,47 +25,52 @@ function SessionHost() {
   useEffect(() => {
     if (!socket || !session) return;
 
-    socket.emit('admin-join', { sessionId });
+    socket.emit("admin-join", {
+      sessionId,
+      token: localStorage.getItem("adminToken"),
+    });
 
-    socket.on('participant-joined', ({ participant, totalParticipants }) => {
-      setParticipants(prev => {
-        const exists = prev.find(p => p.visitorId === participant.visitorId);
+    socket.on("participant-joined", ({ participant, totalParticipants }) => {
+      setParticipants((prev) => {
+        const exists = prev.find((p) => p.visitorId === participant.visitorId);
         if (exists) return prev;
         return [...prev, participant];
       });
     });
 
-    socket.on('participant-disconnected', ({ visitorId }) => {
-      setParticipants(prev => 
-        prev.map(p => p.visitorId === visitorId ? { ...p, isConnected: false } : p)
+    socket.on("participant-disconnected", ({ visitorId }) => {
+      setParticipants((prev) =>
+        prev.map((p) =>
+          p.visitorId === visitorId ? { ...p, isConnected: false } : p,
+        ),
       );
     });
 
-    socket.on('question', ({ questionIndex, question, timerDuration }) => {
+    socket.on("question", ({ questionIndex, question, timerDuration }) => {
       setCurrentQuestion({ index: questionIndex, ...question });
       setTimer(timerDuration);
       setSubmissionCount(0);
     });
 
-    socket.on('timer-sync', ({ remaining }) => {
+    socket.on("timer-sync", ({ remaining }) => {
       setTimer(remaining);
     });
 
-    socket.on('submission-update', ({ submissionCount }) => {
+    socket.on("submission-update", ({ submissionCount }) => {
       setSubmissionCount(submissionCount);
     });
 
-    socket.on('quiz-ended', ({ leaderboard }) => {
+    socket.on("quiz-ended", ({ leaderboard }) => {
       setQuizEnded(true);
     });
 
     return () => {
-      socket.off('participant-joined');
-      socket.off('participant-disconnected');
-      socket.off('question');
-      socket.off('timer-sync');
-      socket.off('submission-update');
-      socket.off('quiz-ended');
+      socket.off("participant-joined");
+      socket.off("participant-disconnected");
+      socket.off("question");
+      socket.off("timer-sync");
+      socket.off("submission-update");
+      socket.off("quiz-ended");
     };
   }, [socket, session]);
 
@@ -74,25 +79,25 @@ function SessionHost() {
       const data = await get(`/api/sessions/${sessionId}`);
       setSession(data);
       setParticipants(data.participants || []);
-      if (data.status === 'ended') {
+      if (data.status === "ended") {
         setQuizEnded(true);
       }
     } catch (error) {
-      console.error('Failed to fetch session:', error);
+      console.error("Failed to fetch session:", error);
     }
   };
 
   const handleStartQuiz = () => {
-    socket.emit('start-quiz', { sessionId });
+    socket.emit("start-quiz", { sessionId });
   };
 
   const handleNextQuestion = () => {
-    socket.emit('next-question', { sessionId });
+    socket.emit("next-question", { sessionId });
   };
 
   const handleEndQuiz = () => {
-    if (confirm('Are you sure you want to end the quiz?')) {
-      socket.emit('end-quiz', { sessionId });
+    if (confirm("Are you sure you want to end the quiz?")) {
+      socket.emit("end-quiz", { sessionId });
     }
   };
 
@@ -119,15 +124,15 @@ function SessionHost() {
           <div className="card text-center">
             <h2>Quiz Ended!</h2>
             <p>The quiz has been completed.</p>
-            <button 
+            <button
               className="btn btn-primary mt-4"
               onClick={() => navigate(`/results/${sessionId}`)}
             >
               View Results
             </button>
-            <button 
+            <button
               className="btn btn-secondary mt-4"
-              onClick={() => navigate('/admin')}
+              onClick={() => navigate("/admin")}
             >
               Back to Dashboard
             </button>
@@ -153,7 +158,7 @@ function SessionHost() {
 
         <div className="session-grid">
           {/* QR Code and Join Info */}
-          {session.status === 'waiting' && (
+          {session.status === "waiting" && (
             <div className="card qr-card">
               <h2>Join Code: {session.code}</h2>
               <div className="qr-container">
@@ -171,10 +176,10 @@ function SessionHost() {
           )}
 
           {/* Current Question */}
-          {session.status === 'active' && currentQuestion && (
+          {session.status === "active" && currentQuestion && (
             <div className="card question-card">
               <div className="timer-display">
-                <div className={`timer ${timer <= 5 ? 'timer-warning' : ''}`}>
+                <div className={`timer ${timer <= 5 ? "timer-warning" : ""}`}>
                   {timer}s
                 </div>
               </div>
@@ -191,7 +196,10 @@ function SessionHost() {
                 {submissionCount}/{participants.length} submitted
               </div>
               <div className="question-controls">
-                <button className="btn btn-primary" onClick={handleNextQuestion}>
+                <button
+                  className="btn btn-primary"
+                  onClick={handleNextQuestion}
+                >
                   Next Question
                 </button>
                 <button className="btn btn-danger" onClick={handleEndQuiz}>
@@ -211,8 +219,10 @@ function SessionHost() {
                 participants.map((p, i) => (
                   <div key={p.visitorId || i} className="participant-item">
                     <span className="participant-name">{p.name}</span>
-                    <span className={`participant-status ${p.isConnected !== false ? 'online' : 'offline'}`}>
-                      {p.isConnected !== false ? '●' : '○'}
+                    <span
+                      className={`participant-status ${p.isConnected !== false ? "online" : "offline"}`}
+                    >
+                      {p.isConnected !== false ? "●" : "○"}
                     </span>
                   </div>
                 ))

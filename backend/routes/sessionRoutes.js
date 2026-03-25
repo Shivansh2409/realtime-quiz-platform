@@ -1,23 +1,24 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const sessionController = require('../controllers/sessionController');
+const authMiddleware = require("../middleware/authMiddleware");
+const sessionController = require("../controllers/sessionController");
 
 // Create a new session
-router.post('/', sessionController.createSession);
+router.post("/", authMiddleware, sessionController.createSession);
 
-// Get session by code
-router.get('/code/:code', sessionController.getSessionByCode);
+// Get session by code (public)
+router.get("/code/:code", sessionController.getSessionByCode);
 
-// Get session by ID
-router.get('/:id', sessionController.getSessionById);
+// Get session by ID (public)
+router.get("/:id", sessionController.getSessionById);
 
-// Get session results/leaderboard
-router.get('/:id/results', sessionController.getSessionResults);
+// Get session results/leaderboard (public)
+router.get("/:id/results", sessionController.getSessionResults);
 
 // End a session
-router.put('/:id/end', sessionController.endSession);
+router.put("/:id/end", authMiddleware, sessionController.endSession);
 
-// Generate QR code for session
-router.get('/:id/qr', sessionController.generateQRCode);
+// Generate QR code for session (public)
+router.get("/:id/qr", sessionController.generateQRCode);
 
 module.exports = router;

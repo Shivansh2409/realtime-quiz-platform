@@ -1,6 +1,6 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback } from "react";
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
 export const useApi = () => {
   const [loading, setLoading] = useState(false);
@@ -11,18 +11,20 @@ export const useApi = () => {
     setError(null);
 
     try {
+      const token = localStorage.getItem("adminToken");
       const response = await fetch(`${API_BASE}${endpoint}`, {
         headers: {
-          'Content-Type': 'application/json',
-          ...options.headers
+          "Content-Type": "application/json",
+          ...(token && { Authorization: `Bearer ${token}` }),
+          ...options.headers,
         },
-        ...options
+        ...options,
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Request failed');
+        throw new Error(data.error || "Request failed");
       }
 
       return data;
@@ -36,22 +38,31 @@ export const useApi = () => {
 
   const get = useCallback((endpoint) => request(endpoint), [request]);
 
-  const post = useCallback((endpoint, body) => 
-    request(endpoint, {
-      method: 'POST',
-      body: JSON.stringify(body)
-    }), [request]);
+  const post = useCallback(
+    (endpoint, body) =>
+      request(endpoint, {
+        method: "POST",
+        body: JSON.stringify(body),
+      }),
+    [request],
+  );
 
-  const put = useCallback((endpoint, body) => 
-    request(endpoint, {
-      method: 'PUT',
-      body: JSON.stringify(body)
-    }), [request]);
+  const put = useCallback(
+    (endpoint, body) =>
+      request(endpoint, {
+        method: "PUT",
+        body: JSON.stringify(body),
+      }),
+    [request],
+  );
 
-  const del = useCallback((endpoint) => 
-    request(endpoint, {
-      method: 'DELETE'
-    }), [request]);
+  const del = useCallback(
+    (endpoint) =>
+      request(endpoint, {
+        method: "DELETE",
+      }),
+    [request],
+  );
 
   return { loading, error, get, post, put, del };
 };

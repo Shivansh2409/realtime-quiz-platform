@@ -1,8 +1,8 @@
-import { useState, useEffect, useRef } from 'react';
-import { useParams, useLocation, useNavigate } from 'react-router-dom';
-import { useSocket } from '../../context/SocketContext';
-import { v4 as uuidv4 } from '../../utils/uuid';
-import './Student.css';
+import { useState, useEffect, useRef } from "react";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { useSocket } from "../../context/SocketContext";
+import { v4 as uuidv4 } from "../../utils/uuid";
+import "./Student.css";
 
 function QuizRoom() {
   const { code } = useParams();
@@ -10,7 +10,7 @@ function QuizRoom() {
   const navigate = useNavigate();
   const { socket, isConnected } = useSocket();
 
-  const [sessionState, setSessionState] = useState('waiting'); // waiting, active, ended
+  const [sessionState, setSessionState] = useState("waiting"); // waiting, active, ended
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [timer, setTimer] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
@@ -23,79 +23,85 @@ function QuizRoom() {
   const visitorId = useRef(getOrCreateVisitorId());
 
   function getOrCreateVisitorId() {
-    let id = localStorage.getItem('visitorId');
+    let id = localStorage.getItem("visitorId");
     if (!id) {
       id = uuidv4();
-      localStorage.setItem('visitorId', id);
+      localStorage.setItem("visitorId", id);
     }
     return id;
   }
 
-  const studentName = location.state?.studentName || localStorage.getItem('studentName') || 'Anonymous';
+  const studentName =
+    location.state?.studentName ||
+    localStorage.getItem("studentName") ||
+    "Anonymous";
 
   useEffect(() => {
     if (!socket || !isConnected) return;
 
     // Join the session
-    socket.emit('student-join', {
+    socket.emit("student-join", {
       sessionCode: code,
       studentName,
-      visitorId: visitorId.current
+      visitorId: visitorId.current,
     });
 
     // Listen for session state
-    socket.on('session-state', ({ status, currentQuestionIndex, quiz }) => {
+    socket.on("session-state", ({ status, currentQuestionIndex, quiz }) => {
       setSessionState(status);
       setQuizInfo(quiz);
     });
 
     // Listen for quiz start
-    socket.on('quiz-started', ({ totalQuestions }) => {
-      setSessionState('active');
-      setQuizInfo(prev => ({ ...prev, totalQuestions }));
+    socket.on("quiz-started", ({ totalQuestions }) => {
+      setSessionState("active");
+      setQuizInfo((prev) => ({ ...prev, totalQuestions }));
     });
 
     // Listen for new questions
-    socket.on('question', ({ questionIndex, question, timerDuration, remainingTime }) => {
-      setCurrentQuestion({ index: questionIndex, ...question });
-      setTimer(remainingTime || timerDuration);
-      setSelectedAnswer(null);
-      setAnswerSubmitted(false);
-      questionStartTime.current = Date.now();
-    });
+    socket.on(
+      "question",
+      ({ questionIndex, question, timerDuration, remainingTime }) => {
+        setCurrentQuestion({ index: questionIndex, ...question });
+        setTimer(remainingTime || timerDuration);
+        setSelectedAnswer(null);
+        setAnswerSubmitted(false);
+        questionStartTime.current = Date.now();
+      },
+    );
 
     // Listen for timer sync
-    socket.on('timer-sync', ({ remaining }) => {
+    socket.on("timer-sync", ({ remaining }) => {
       setTimer(remaining);
     });
 
     // Listen for answer confirmation
-    socket.on('answer-received', ({ received }) => {
+    socket.on("answer-received", ({ received }) => {
       if (received) {
         setAnswerSubmitted(true);
       }
     });
 
     // Listen for quiz end
-    socket.on('quiz-ended', ({ leaderboard, sessionId }) => {
-      setSessionState('ended');
+    socket.on("quiz-ended", ({ leaderboard, sessionId }) => {
+      setSessionState("ended");
       setLeaderboard(leaderboard);
       setSessionId(sessionId);
     });
 
     // Listen for errors
-    socket.on('error', ({ message }) => {
-      console.error('Socket error:', message);
+    socket.on("error", ({ message }) => {
+      console.error("Socket error:", message);
     });
 
     return () => {
-      socket.off('session-state');
-      socket.off('quiz-started');
-      socket.off('question');
-      socket.off('timer-sync');
-      socket.off('answer-received');
-      socket.off('quiz-ended');
-      socket.off('error');
+      socket.off("session-state");
+      socket.off("quiz-started");
+      socket.off("question");
+      socket.off("timer-sync");
+      socket.off("answer-received");
+      socket.off("quiz-ended");
+      socket.off("error");
     };
   }, [socket, isConnected, code, studentName]);
 
@@ -109,25 +115,29 @@ function QuizRoom() {
 
     const timeSpent = Date.now() - questionStartTime.current;
 
-    socket.emit('submit-answer', {
+    socket.emit("submit-answer", {
       sessionCode: code,
       visitorId: visitorId.current,
       questionIndex: currentQuestion.index,
       answer: selectedAnswer,
-      timeSpent
+      timeSpent,
     });
   };
 
   // Render waiting screen
-  if (sessionState === 'waiting') {
+  if (sessionState === "waiting") {
     return (
       <div className="student-page">
         <div className="quiz-container">
-          <div className="card waiting-card text-center">
+          <div className="card waiting-card text-center fade-in-up">
             <div className="waiting-icon">⏳</div>
             <h2>Waiting for Quiz to Start</h2>
-            <p>Session Code: <strong>{code}</strong></p>
-            <p>Welcome, <strong>{studentName}</strong>!</p>
+            <p>
+              Session Code: <strong>{code}</strong>
+            </p>
+            <p>
+              Welcome, <strong>{studentName}</strong>!
+            </p>
             <p className="waiting-message">
               The host will start the quiz shortly...
             </p>
@@ -145,16 +155,19 @@ function QuizRoom() {
   }
 
   // Render quiz ended screen
-  if (sessionState === 'ended') {
-    const myResult = leaderboard?.find(p => p.visitorId === visitorId.current);
-    const myRank = leaderboard?.findIndex(p => p.visitorId === visitorId.current) + 1;
+  if (sessionState === "ended") {
+    const myResult = leaderboard?.find(
+      (p) => p.visitorId === visitorId.current,
+    );
+    const myRank =
+      leaderboard?.findIndex((p) => p.visitorId === visitorId.current) + 1;
 
     return (
       <div className="student-page">
         <div className="quiz-container">
-          <div className="card results-card text-center">
+          <div className="card results-card text-center fade-in-up">
             <h2>🎉 Quiz Complete!</h2>
-            
+
             {myResult && (
               <div className="my-result">
                 <div className="rank-badge">#{myRank}</div>
@@ -167,16 +180,16 @@ function QuizRoom() {
               </div>
             )}
 
-            <button 
+            <button
               className="btn btn-primary mt-4"
               onClick={() => navigate(`/results/${sessionId}`)}
             >
               View Full Leaderboard
             </button>
 
-            <button 
+            <button
               className="btn btn-secondary mt-4"
-              onClick={() => navigate('/')}
+              onClick={() => navigate("/")}
             >
               Back to Home
             </button>
@@ -189,9 +202,9 @@ function QuizRoom() {
   // Render active quiz
   return (
     <div className="student-page">
-      <div className="quiz-container">
+      <div className="quiz-container" key={currentQuestion?.index || "waiting"}>
         {/* Timer */}
-        <div className={`timer-bar ${timer <= 5 ? 'warning' : ''}`}>
+        <div className={`timer-bar ${timer <= 5 ? "warning" : ""}`}>
           <div className="timer-value">{timer}s</div>
           <div className="timer-label">
             Question {currentQuestion?.index + 1} of {quizInfo?.totalQuestions}
@@ -200,25 +213,27 @@ function QuizRoom() {
 
         {/* Question */}
         {currentQuestion && (
-          <div className="card question-card">
+          <div className="card question-card fade-in-up">
             <h2 className="question-text">{currentQuestion.text}</h2>
 
             <div className="options-grid">
               {currentQuestion.options.map((option, index) => (
                 <button
                   key={index}
-                  className={`option-btn ${selectedAnswer === index ? 'selected' : ''} ${answerSubmitted ? 'disabled' : ''}`}
+                  className={`option-btn ${selectedAnswer === index ? "selected" : ""} ${answerSubmitted ? "disabled" : ""}`}
                   onClick={() => handleSelectAnswer(index)}
                   disabled={answerSubmitted || timer <= 0}
                 >
-                  <span className="option-letter">{String.fromCharCode(65 + index)}</span>
+                  <span className="option-letter">
+                    {String.fromCharCode(65 + index)}
+                  </span>
                   <span className="option-text">{option}</span>
                 </button>
               ))}
             </div>
 
             {selectedAnswer !== null && !answerSubmitted && timer > 0 && (
-              <button 
+              <button
                 className="btn btn-success btn-block submit-btn"
                 onClick={handleSubmitAnswer}
               >
@@ -233,9 +248,7 @@ function QuizRoom() {
             )}
 
             {timer <= 0 && !answerSubmitted && (
-              <div className="timeout-message">
-                ⏰ Time's up!
-              </div>
+              <div className="timeout-message">⏰ Time's up!</div>
             )}
           </div>
         )}

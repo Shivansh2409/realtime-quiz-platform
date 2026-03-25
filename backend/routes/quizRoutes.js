@@ -1,29 +1,38 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const quizController = require('../controllers/quizController');
+const authMiddleware = require("../middleware/authMiddleware");
+const quizController = require("../controllers/quizController");
 
 // Create a new quiz
-router.post('/', quizController.createQuiz);
+router.post("/", authMiddleware, quizController.createQuiz);
 
-// Get all quizzes
-router.get('/', quizController.getAllQuizzes);
+// Get all quizzes (public)
+router.get("/", authMiddleware, quizController.getAllQuizzes);
 
-// Get a specific quiz
-router.get('/:id', quizController.getQuizById);
+// Get a specific quiz (public)
+router.get("/:id", quizController.getQuizById);
 
 // Update a quiz
-router.put('/:id', quizController.updateQuiz);
+router.put("/:id", authMiddleware, quizController.updateQuiz);
 
 // Delete a quiz
-router.delete('/:id', quizController.deleteQuiz);
+router.delete("/:id", authMiddleware, quizController.deleteQuiz);
 
 // Add question to quiz
-router.post('/:id/questions', quizController.addQuestion);
+router.post("/:id/questions", authMiddleware, quizController.addQuestion);
 
 // Update question in quiz
-router.put('/:id/questions/:questionId', quizController.updateQuestion);
+router.put(
+  "/:id/questions/:questionId",
+  authMiddleware,
+  quizController.updateQuestion,
+);
 
 // Delete question from quiz
-router.delete('/:id/questions/:questionId', quizController.deleteQuestion);
+router.delete(
+  "/:id/questions/:questionId",
+  authMiddleware,
+  quizController.deleteQuestion,
+);
 
 module.exports = router;

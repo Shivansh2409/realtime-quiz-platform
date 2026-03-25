@@ -1,6 +1,7 @@
 .admin-page {
   min-height: 100vh;
   padding: 20px;
+  color: #ffffff;
 }
 
 .admin-header {
@@ -11,7 +12,8 @@
 }
 
 .admin-header h1 {
-  color: white;
+  color: #ffffff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .quizzes-grid {
@@ -20,18 +22,23 @@
   gap: 20px;
 }
 
+.quiz-card {
+  color: #ffffff;
+}
+
 .quiz-card h3 {
   margin-bottom: 8px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .quiz-description {
-  color: #666;
+  color: rgba(255, 255, 255, 0.8);
   font-size: 14px;
   margin-bottom: 8px;
 }
 
 .quiz-meta {
-  color: #888;
+  color: rgba(255, 255, 255, 0.6);
   font-size: 12px;
   margin-bottom: 16px;
 }
@@ -50,6 +57,8 @@
 /* Quiz Creator */
 .quiz-form h2 {
   margin-bottom: 16px;
+  color: #ffffff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .option-input {
@@ -62,6 +71,8 @@
 .option-input input[type="radio"] {
   width: 20px;
   height: 20px;
+  cursor: pointer;
+  accent-color: #00ffff;
 }
 
 .questions-list {
@@ -71,9 +82,20 @@
 }
 
 .question-item {
-  background: #f8f9fa;
-  padding: 12px;
-  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 16px;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  color: #ffffff;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.question-item:hover {
+  transform: translateX(5px);
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
 }
 
 .question-header {
@@ -84,6 +106,10 @@
   margin-bottom: 8px;
 }
 
+.question-header h4 {
+  color: #ffffff;
+}
+
 .question-options {
   display: flex;
   gap: 8px;
@@ -92,19 +118,24 @@
 }
 
 .option-tag {
-  background: #e0e0e0;
-  padding: 4px 8px;
-  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(12px);
+  padding: 6px 12px;
+  border-radius: 12px;
   font-size: 12px;
+  color: #ffffff;
+  transition: all 0.2s ease;
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .option-tag.correct {
-  background: #10b981;
-  color: white;
+  background: rgba(0, 255, 136, 0.3);
+  border-color: rgba(0, 255, 136, 0.5);
+  box-shadow: 0 0 12px rgba(0, 255, 136, 0.4);
 }
 
 .btn-sm {
-  padding: 4px 12px;
+  padding: 6px 14px;
   font-size: 12px;
 }
 
@@ -122,19 +153,21 @@
 }
 
 .session-header h1 {
-  color: white;
+  color: #ffffff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .connection-status {
-  color: white;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .status-connected {
-  color: #10b981;
+  color: #00ff88;
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
 }
 
 .status-disconnected {
-  color: #ef4444;
+  color: rgba(255, 68, 68, 0.9);
 }
 
 .session-grid {
@@ -157,19 +190,32 @@
   font-size: 2rem;
   letter-spacing: 4px;
   margin-bottom: 20px;
+  color: #ffffff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .qr-container {
   display: flex;
   justify-content: center;
   margin-bottom: 16px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .join-url {
-  color: #666;
+  color: rgba(255, 255, 255, 0.8);
   font-size: 14px;
   margin-bottom: 20px;
   word-break: break-all;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .question-card {
@@ -181,24 +227,37 @@
 }
 
 .timer {
-  font-size: 4rem;
+  font-size: 5rem;
   font-weight: bold;
-  color: #667eea;
+  color: #00ffff;
+  text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+  transition: all 0.3s ease;
 }
 
 .timer-warning {
-  color: #ef4444;
-  animation: pulse 1s infinite;
+  color: #ffffff;
+  text-shadow: 0 0 20px rgba(255, 68, 68, 0.5);
+  animation: pulse 0.5s infinite;
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
 }
 
 .question-text {
   font-size: 1.25rem;
   margin-bottom: 20px;
+  line-height: 1.5;
+  color: #ffffff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .options-preview {
@@ -207,25 +266,38 @@
 }
 
 .option-preview {
-  padding: 8px 12px;
-  background: #f0f0f0;
-  border-radius: 4px;
-  margin-bottom: 8px;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  margin-bottom: 12px;
+  transition: all 0.3s ease;
+  color: #ffffff;
+}
+
+.option-preview:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateX(8px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
 .submission-status {
-  color: #666;
+  color: rgba(255, 255, 255, 0.8);
   margin-bottom: 20px;
+  font-weight: 600;
 }
 
 .question-controls {
   display: flex;
   gap: 12px;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .participants-card h2 {
   margin-bottom: 16px;
+  color: #ffffff;
 }
 
 .participants-list {
@@ -234,7 +306,7 @@
 }
 
 .no-participants {
-  color: #888;
+  color: rgba(255, 255, 255, 0.6);
   text-align: center;
   padding: 20px;
 }
@@ -243,18 +315,33 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 0;
-  border-bottom: 1px solid #eee;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.2s ease;
+  color: #ffffff;
+}
+
+.participant-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  padding-left: 8px;
+  padding-right: 8px;
+  margin: 0 -8px;
+  border-radius: 12px;
 }
 
 .participant-item:last-child {
   border-bottom: none;
 }
 
+.participant-name {
+  font-weight: 500;
+}
+
 .participant-status.online {
-  color: #10b981;
+  color: #00ff88;
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
 }
 
 .participant-status.offline {
-  color: #888;
+  color: rgba(255, 255, 255, 0.5);
 }
